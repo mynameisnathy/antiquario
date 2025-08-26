@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Finalizar Entrega</title>
+  <style>
+
+      @font-face {
+      font-family:'Chancery cursive';
+      src: url(/chancery_cursive/chancur.ttf);
+    }
+
+    body {
+      background-image: url(/fundo\ 50s.jpeg);
+      background-size: cover;
+      background-attachment: fixed;
+      font-family: Georgia, serif;
+      background-color: #f0e4d6;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff8f0;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+    img {
+      max-width: 150px;
+      margin-bottom: 12px;
+    }
+    h2, h3 {
+      font-family:'Chancery cursive';
+      color: #442b1c;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: Georgia, serif;
+      font-size: 1rem;
+    }
+    button {
+      font-family:'Chancery cursive';
+      background-color: #7b4b2a;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 1.2rem;
+    }
+    button:hover {
+      background-color: #5a2e1a;
+    }
+    .tempo-entrega {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #3a2417;
+      font-weight: bold;
+    }
+    .info-contato {
+      margin-top: 30px;
+      padding: 10px;
+      background-color: #f9dfc9;
+      border-left: 5px solid #b87b58;
+    }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+    .actions button {
+      flex: 1;
+      margin: 10px 5px 0 5px;
+    }
+    
+  </style>
+</head>
+<body>
+    <img src="https://img1.picmix.com/output/stamp/normal/4/6/8/5/2175864_50231.gif" alt="Loading" id="overlay-gif"/>
+  <div class="container">
+    <h2>Finalizar Entrega</h2>
+
+    <div id="produto-info">
+      <img id="produto-img" src="" alt="">
+      <h3 id="produto-nome"></h3>
+      <p id="produto-preco"></p>
+    </div>
+
+    <form id="form-entrega">
+      <label for="nome">Seu Nome:</label>
+      <input type="text" id="nome" required>
+
+      <label for="cep">CEP:</label>
+      <input type="text" id="cep" maxlength="9" placeholder="00000-000" required>
+
+      <label for="logradouro">Logradouro:</label>
+      <input type="text" id="logradouro" readonly required>
+
+      <label for="bairro">Bairro:</label>
+      <input type="text" id="bairro" readonly required>
+
+      <label for="estado">Estado:</label>
+      <select id="estado" required disabled>
+        <option value="">Carregando estados...</option>
+      </select>
+
+      <label for="municipio">Município:</label>
+      <select id="municipio" required disabled>
+        <option value="">Selecione o estado primeiro</option>
+      </select>
+
+      <label for="observacoes">Observações:</label>
+      <textarea id="observacoes" rows="2"></textarea>
+
+      <button type="submit">Finalizar Compra</button>
+    </form>
+
+    <div class="tempo-entrega" id="tempo-entrega" style="display:none;"></div>
+
+    <div class="actions">
+      <button id="voltar">Voltar</button>
+      <button id="remover">Remover Item</button>
+    </div>
+
+    <div class="info-contato">
+      <p><strong>Informações de Contato:</strong></p>
+      <p>Email: antiquariovendas@temporal.com</p>
+      <p>Telefone: (11) 99999-9999</p>
+      <p><strong>Pagamento:</strong> Aceitamos apenas dinheiro físico.</p>
+    </div>
+  </div>
+
+  <!-- Som vintage curto -->
+  <audio id="somVintage" src="https://actions.google.com/sounds/v1/retro/typewriter_return_key_press.ogg" preload="auto"></audio>
+
+  <script>
+        window.addEventListener('load', () => {
+      setTimeout(() => {
+        const overlay = document.getElementById('loading-overlay');
+        if (overlay) {
+          overlay.style.display = 'none';
+        }
+      }, 5000); // 5000ms = 5 segundos
+    });
+
+    const produto = JSON.parse(localStorage.getItem('produtoSelecionado'));
+
+    const img = document.getElementById('produto-img');
+    const nomeProduto = document.getElementById('produto-nome');
+    const preco = document.getElementById('produto-preco');
+    const tempoEntrega = document.getElementById('tempo-entrega');
+    const infoContainer = document.getElementById('produto-info');
+    const formEntrega = document.getElementById('form-entrega');
+    const somVintage = document.getElementById('somVintage');
+
+    const cepInput = document.getElementById('cep');
+    const logradouroInput = document.getElementById('logradouro');
+    const bairroInput = document.getElementById('bairro');
+    const estadoSelect = document.getElementById('estado');
+    const municipioSelect = document.getElementById('municipio');
+
+    function carregarProduto() {
+      if (produto) {
+        img.src = produto.imagem;
+        nomeProduto.innerText = produto.nome;
+        preco.innerText = produto.preco;
+      } else {
+        infoContainer.innerHTML = "<p>Nenhum item selecionado.</p>";
+        formEntrega.style.display = 'none';
+      }
+    }
+
+    // Carregar estados IBGE
+    function carregarEstados() {
+      fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
+        .then(res => res.json())
+        .then(estados => {
+          estados.sort((a,b) => a.nome.localeCompare(b.nome));
+          estadoSelect.innerHTML = '<option value="">Selecione o estado</option>';
+          estados.forEach(estado => {
+            const option = document.createElement('option');
+            option.value = estado.sigla;
+            option.textContent = estado.nome;
+            estadoSelect.appendChild(option);
+          });
+          estadoSelect.disabled = false;
+        })
+        .catch(() => {
+          estadoSelect.innerHTML = '<option value="">Erro ao carregar estados</option>';
+          estadoSelect.disabled = true;
+        });
+    }
+
+    // Carregar municípios pelo estado selecionado
+    function carregarMunicipios(uf) {
+      municipioSelect.innerHTML = '<option value="">Carregando municípios...</option>';
+      municipioSelect.disabled = true;
+
+      if (!uf) {
+        municipioSelect.innerHTML = '<option value="">Selecione o estado primeiro</option>';
+        municipioSelect.disabled = true;
+        return;
+      }
+
+      fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`)
+        .then(res => res.json())
+        .then(municipios => {
+          municipios.sort((a,b) => a.nome.localeCompare(b.nome));
+          municipioSelect.innerHTML = '<option value="">Selecione o município</option>';
+          municipios.forEach(mun => {
+            const option = document.createElement('option');
+            option.value = mun.nome;
+            option.textContent = mun.nome;
+            municipioSelect.appendChild(option);
+          });
+          municipioSelect.disabled = false;
+        })
+        .catch(() => {
+          municipioSelect.innerHTML = '<option value="">Erro ao carregar municípios</option>';
+          municipioSelect.disabled = true;
+        });
+    }
+
+    estadoSelect.addEventListener('change', () => {
+      carregarMunicipios(estadoSelect.value);
+    });
+
+    // Busca ViaCEP quando o usuário sair do campo CEP
+    cepInput.addEventListener('blur', () => {
+      const cep = cepInput.value.replace(/\D/g, '');
+      if (cep.length !== 8) {
+        alert('CEP inválido. Por favor, digite um CEP com 8 dígitos.');
+        return;
+      }
+      fetch(`https://viacep.com.br/ws/${cep}/json/`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.erro) {
+            alert('CEP não encontrado.');
+            return;
+          }
+          logradouroInput.value = data.logradouro || '';
+          bairroInput.value = data.bairro || '';
+
+          estadoSelect.value = data.uf || '';
+          carregarMunicipios(data.uf);
+
+          // Após os municípios carregarem, seleciona o município certo
+          setTimeout(() => {
+            municipioSelect.value = data.localidade || '';
+          }, 700);
+        })
+        .catch(() => {
+          alert('Erro ao buscar o CEP.');
+        });
+    });
+
+    formEntrega.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      somVintage.currentTime = 0;
+      somVintage.play();
+
+      const dias = Math.floor(Math.random() * 15) + 2;
+      tempoEntrega.style.display = 'block';
+      tempoEntrega.innerText = `Seu item chegará em aproximadamente ${dias} dias úteis.`;
+      this.reset();
+
+      // Também resetar selects para padrão
+      estadoSelect.value = '';
+      municipioSelect.innerHTML = '<option value="">Selecione o estado primeiro</option>';
+      municipioSelect.disabled = true;
+    });
+
+    // Botão "Voltar"
+    document.getElementById('voltar').addEventListener('click', () => {
+      window.location.href = 'ablueblue.html';
+    });
+
+    // Botão "Remover Item" com confirmação
+    document.getElementById('remover').addEventListener('click', () => {
+      if(confirm('Tem certeza que deseja remover o item selecionado?')) {
+        localStorage.removeItem('produtoSelecionado');
+        infoContainer.innerHTML = "<p>Item removido.</p>";
+        formEntrega.style.display = 'none';
+        tempoEntrega.style.display = 'none';
+      }
+    });
+
+    carregarProduto();
+    carregarEstados();
+  </script>
+</body>
+</html>

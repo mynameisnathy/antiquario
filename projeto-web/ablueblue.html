@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Antiquário Temporal - Página inicial</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+
+      @font-face {
+      font-family:'Chancery cursive';
+      src: url(/chancery_cursive/chancur.ttf);
+    }
+    
+    body {
+      background-color: #2d180f6b;
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', serif;
+      background-image: url('/fundo 50s.jpeg');
+      background-size: cover;
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+
+    header {
+      font-family:'Chancery cursive';
+      background-color: #2d180f6b;
+      position: relative; /* Para conter o img absoluto */
+      color: #f5d7c8;
+      text-align: center;
+      padding: 32px 10px 18px 10px;
+      font-size: 2rem;
+      letter-spacing: 2px;
+      box-shadow: 0 -2px 12px #4b2e1340;
+      border-bottom: 1.3px solid #ce9b7e;
+      text-shadow: #200f00 5px 1px 10px;
+    }
+
+    .header-img-link {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: rotate(-10deg) translate(-170%, -60%);
+      display: inline-block;
+      z-index: 10;
+      cursor: pointer;
+      opacity: 0.8;
+      transition: opacity 0.6s ease;
+      height: auto;
+    }
+
+    /* Ajuste da imagem do relógio e animação */
+    .header-img-link img {
+      width: 200px;
+      height: auto;
+      transition: transform 0.6s ease;
+      transform-origin: center center;
+      display: block;
+    }
+
+    /* Classe que gira a imagem */
+    .header-img-link.rotate img {
+      transform: rotate(360deg);
+    }
+
+    /* Responsivo para telas menores que 600px */
+    @media (max-width: 600px) {
+      .header-img-link {
+        position: static; /* tira o absolute */
+        transform: rotate(0) translate(0, 0); /* remove rotação e translate */
+        display: block;
+        margin: 0 auto 12px auto; /* centraliza e espaça */
+        opacity: 1; /* opcional para garantir visibilidade */
+      }
+
+      header {
+        padding: 18px 6px 10px 6px;
+        font-size: 1.3rem;
+      }
+    }
+
+    nav {
+      font-family:'Chancery cursive';
+      background-color: #2d180f6b;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 12px 0;
+      font-size: 1.1rem;
+      border-bottom: 1.3px solid #ce9b7e;
+    }
+
+    nav a {
+      color: #e1c9b8;
+      text-decoration: none;
+      padding: 6px 14px;
+    }
+
+    nav a:hover {
+      background: linear-gradient(90deg, #7c4d36 0%, #5c3417 100%);
+      color: #ffe7ca;
+    }
+
+    .container { 
+      max-width: 1100px;
+      margin: 32px auto;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+    }
+
+    .produto {
+      background-color: #2d180f6b;
+      border: #bfa76f 1px solid;
+      box-shadow: 0 4px 18px rgba(75, 46, 19, 0.2);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .produto:hover {
+      box-shadow: 0 8px 32px #52331540;
+      transform: scale(1.03);
+    }
+
+    .produto img {
+      width: 200px;
+      height: auto;
+      border-radius: 1px;
+      border: 1px solid #bfa76f;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 8px #4b2b07a0;
+      cursor: pointer;
+    }
+
+    .produto h3 {
+      margin: 0 0 8px 0;
+      font-size: 1.2rem;
+      color: #3d200c;
+      text-shadow: #f0ceb0de 1px 0px 1px;
+      font-family: 'Georgia', serif;
+    }
+
+    .produto img[alt="Maquina"] + h3 {
+      opacity: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid transparent;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    .produto p {
+      font-size: 0.95rem;
+      margin: 0 0 10px 0;
+      color: #ebceb3;
+      text-align: center;
+    }
+
+    .produto .preco {
+      color: #f0c6a5;
+      font-weight: bold;
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+    }
+
+    .produto button {
+      background: linear-gradient(90deg, #97613fad 40%, #5b2e0c 100%);
+      color: #e1bf9f;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 18px;
+      font-size: 1rem;
+      font-family: 'Georgia', serif;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #5a200f55;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .produto button:hover {
+      background: linear-gradient(90deg, #5b2e0c 40%, #97613fad 100%);
+      color: #e1bf9f;
+      transform: scale(1.07);
+    }
+
+    footer {
+      font-family:'Chancery cursive';
+      background-color: #2d180f6b;
+      color: #f5e6c8;
+      text-align: center;
+      padding: 18px 10px;
+      font-size: 1rem;
+      margin-top: 32px;
+      box-shadow: 0 -2px 12px #4b2e1340;
+    }
+
+    /* Responsivo */
+    @media (max-width: 600px) {
+      header {
+        font-size: 1.3rem;
+        padding: 18px 6px 10px 6px;
+      }
+      .container {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+      nav {
+        flex-direction: column;
+        gap: 8px;
+        font-size: 1rem;
+      }
+      .produto img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+    #overlay-gif {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: 9999;
+      opacity: 0.5;
+      pointer-events: none; 
+    }
+
+  </style>
+</head>
+<body>
+
+  <img src="https://img1.picmix.com/output/stamp/normal/4/6/8/5/2175864_50231.gif" alt="Loading" id="overlay-gif"/>
+  <header> Antiquario Temporal
+    <a href="anos90.html" class="header-img-link">
+      <img src="/projeto-web/pngtree-old-fashioned-pocket-watch-design-png-image_15270603.png" alt="Logo"/>
+    </a>
+  </header>
+
+  <nav>
+    <a href="perfil.html">Perfil</a>
+    <a href="carroça.html">Minha Carroça</a>
+    <a href="sobre.html">Sobre</a>
+  </nav>
+
+  <div class="container">
+    <div class="produto">
+      <img src="https://static.vecteezy.com/system/resources/previews/065/585/800/non_2x/a-vintage-typewriter-with-a-weathered-appearance-on-a-clean-transparent-background-vintage-typewriter-on-transparent-background-free-png.png" alt="Maquina" />
+      <h3>Maquina de Escrever</h3>
+      <p>É para escrever...</p>
+      <div class="preco">R$ 400,00</div>
+      <button>Comprar</button>
+    </div>
+    <div class="produto">
+      <img src="https://cdn.pixabay.com/photo/2016/01/09/10/02/nostalgia-1130021_1280.png" alt="Vitrola"/>
+      <h3>Vitrola</h3>
+      <p>Ela toca música...</p>
+      <div class="preco">R$ 480,00</div>
+      <button>Comprar</button>
+    </div>
+    <div class="produto">
+      <img src="https://www.patbo.com.br/cdn/shop/files/I24BOVEL28366BR_00009_1.png?v=1744211872" alt="Vestido" />
+      <h3>Vestidinho preto</h3>
+      <p>A Marylin Monroe já usou esse vestido, é verdade!!!.</p>
+      <div class="preco">R$ 620,00</div>
+      <button>Comprar</button>
+    </div>
+    <div class="produto">
+      <img src="https://png.pngtree.com/png-vector/20250119/ourmid/pngtree-old-fashioned-camera-with-strap-on-white-png-image_15270521.png" alt="Camera" />
+      <h3>Câmera Fotográfica</h3>
+      <p>Tecnicamente é para tirar fotos... Mas não funciona.</p>
+      <div class="preco">R$ 100,00</div>
+      <button>Comprar</button>
+    </div>
+    <div class="produto">
+      <img src="https://www.pngmart.com/files/16/Piano-Transparent-Background.png" alt="piano" />
+      <h3>Piano desafinado - 50s</h3>
+      <p>Baratinho (só pode comprar quem sabe tocar)</p>
+      <div class="preco">R$ 999,00</div>
+      <button>Comprar</button>
+    </div>
+
+      <div class="produto">
+      <img src="/violino-removebg-preview.png" alt="piano" />
+      <h3>Violino</h3>
+      <p>Violino</p>
+      <div class="preco">R$ 83,70</div>
+      <button>Comprar</button>
+    </div>
+
+    <div class="produto">
+    <img src="/radinho-removebg-preview.png" alt="radinho" />
+    <h3>Radinho</h3>
+    <p>Ele toca música</p>
+      <div class="preco">R$ 72,00</div>
+      <button>Comprar</button>
+  </div>
+
+  <div class="produto">
+    <img src="https://dcdn-us.mitiendanube.com/stores/001/706/063/products/image-56a115d3a36fa46e9e17249582412944-480-0.png" alt="luz"/>
+    <h3>Sapatilha de Couro</h3>
+    <p>Para pisar em pessoas</p>
+      <div class="preco">R$ 30,00</div>
+      <button>Comprar</button>
+  </div>
+
+  <div class="produto">
+    <img src="/polto-removebg-preview.png" alt="sofa" />
+    <h3>Poltrona 70s <br> (usada)</h3>
+    <p>Elegante</p>
+      <div class="preco">R$ 70,00</div>
+      <button>Comprar</button>
+  </div>
+
+  <div class="produto">
+    <img src="/telefone-removebg-preview.png" alt="telefone" />
+    <h3>Telefone 90s</h3>
+    <p>Piririm piririm.</p>
+      <div class="preco">R$ 80,00</div>
+      <button>Comprar</button>
+  </div>
+
+  <div class="produto">
+    <img src="/radio-removebg-preview.png" alt="radio" />
+    <h3>Radio FM - 80s</h3>
+    <p>Fique atualizado com <br> as notícias</p>
+      <div class="preco">R$ 62,90</div>
+      <button>Comprar</button>
+  </div>
+
+  <div class="produto">
+    <img src="/violao-removebg-preview.png" alt="viola" />
+    <h3>Violão</h3>
+    <p>Pra tocar</p>
+      <div class="preco">R$ 140,00</div>
+      <button>Comprar</button>
+  </div>
+
+  <div class="produto">
+    <img src="/cha-removebg-preview.png" alt="cha" />
+    <h3>Chaleira Verde
+    </h3>
+    <p>Linda</p>
+      <div class="preco">R$ 35,00</div>
+      <button>Comprar</button>
+  </div>
+
+    <div class="produto">
+    <img src="https://png.pngtree.com/png-clipart/20250103/original/pngtree-old-television-isolated-on-white-background-png-image_19598785.png" alt="viola" />
+    <h3>TV de Tubo <br> (usada)</h3>
+    <p>Com cores!!!</p>
+      <div class="preco">R$ 180,00</div>
+      <button>Comprar</button>
+    </div>
+
+  <div class="produto">
+    <img src="/kombi-removebg-preview.png" alt="viola" />
+    <h3>Kombi</h3>
+    <p>Para viajar com seus amigos</p>
+      <div class="preco">R$ 800,00</div>
+      <button>Comprar</button>
+    </div>
+  </div>
+
+  <audio id="musica-vitrola" src="/Everybody Loves Somebody.mp3" preload="auto"></audio>
+ <audio id="musica-radio" src="/Tears For Fears -  Everybody Wants To Rule The World.mp3" preload="auto"></audio>
+  <footer>
+    © 2025 Antiquário. Todos os direitos reservados.
+  </footer>
+
+  <script>
+    document.querySelectorAll('.produto button').forEach(button => {
+  button.addEventListener('click', () => {
+    const produto = button.closest('.produto');
+    const nome = produto.querySelector('h3').innerText;
+    const preco = produto.querySelector('.preco').innerText;
+    const imagem = produto.querySelector('img').src;
+
+    // Salva os dados no localStorage para usar na página de entrega
+    localStorage.setItem('produtoSelecionado', JSON.stringify({ nome, preco, imagem }));
+
+    // Redireciona para a página de entrega
+    window.location.href = 'carroça.html';
+  });
+});
+
+    // Seleciona só o h3 da máquina de escrever (que está logo depois da imagem com alt="Maquina")
+    const maquinaImg = document.querySelector('.produto img[alt="Maquina"]');
+    const maquinaH3 = maquinaImg.nextElementSibling;
+    const maquinaTexto = maquinaH3.textContent;
+    maquinaH3.textContent = '';
+    maquinaH3.style.opacity = '0';
+
+    function typeWriter(element, text, index = 0) {
+      if (index < text.length) {
+        element.textContent += text.charAt(index);
+        element.style.opacity = '1';
+        setTimeout(() => typeWriter(element, text, index + 1), 100);
+      }
+    }
+
+    maquinaImg.addEventListener('click', () => {
+      if (maquinaH3.textContent.length === 0) {
+        typeWriter(maquinaH3, maquinaTexto);
+      }
+    });
+
+    // Mantém o relógio girando no header
+    const clockLink = document.querySelector('.header-img-link');
+    clockLink.addEventListener('click', function(event) {
+      event.preventDefault();
+      if (!this.classList.contains('rotate')) {
+        this.classList.add('rotate');
+        setTimeout(() => this.classList.remove('rotate'), 600);
+      }
+    });
+
+    // Remover overlay após 5 segundos
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const overlay = document.getElementById('loading-overlay');
+        if (overlay) {
+          overlay.style.display = 'none';
+        }
+      }, 5000); // 5000ms = 5 segundos
+    });
+
+const vitrolaImg = document.querySelector('.produto img[alt="Vitrola"]');
+const musicaVitrola = document.getElementById('musica-vitrola');
+
+vitrolaImg.addEventListener('click', () => {
+  if (musicaVitrola.paused) {
+    musicaVitrola.play();
+  } else {
+    musicaVitrola.pause();
+    musicaVitrola.currentTime = 0; // reinicia a música
+  }
+});
+
+// Para o radio FM
+const radioImg = document.querySelector('.produto img[alt="radio"]');
+const musicaRadio = document.getElementById('musica-radio');
+
+radioImg.addEventListener('click', () => {
+  if (musicaRadio.paused) {
+    musicaRadio.play();
+  } else {
+    musicaRadio.pause();
+    musicaRadio.currentTime = 0;
+  }
+});
+  </script>
+
+</body>
+</html>

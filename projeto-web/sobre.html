@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Décadas de 1950 a 1990 - Cultura e Sociedade</title>
+  <style>
+    
+    @font-face {
+      font-family: 'Chancery cursive';
+      src: url(/chancery_cursive/chancur.ttf);
+    }
+
+    body {
+      background-color: #2d180f6b;
+      margin: 0;
+      padding: 0;
+      font-family: 'Georgia', serif;
+      background-image: url('/fundo 50s.jpeg');
+      background-size: cover;
+      background-attachment: fixed;
+      min-height: 100vh;
+    }
+    
+    header {
+      font-family:'Chancery cursive';
+      background-color: #2d180f6b;
+      position: relative; /* Para conter o img absoluto */
+      color: #f5d7c8;
+      text-align: center;
+      padding: 32px 10px 18px 10px;
+      font-size: 2rem;
+      letter-spacing: 2px;
+      box-shadow: 0 -2px 12px #4b2e1340;
+      border-bottom: 1.3px solid #ce9b7e;
+      text-shadow: #200f00 5px 1px 10px;
+    }
+
+    .header-img-link {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: rotate(-10deg) translate(-170%, -60%);
+      display: inline-block;
+      z-index: 10;
+      cursor: pointer;
+      opacity: 0.8;
+      transition: opacity 0.6s ease;
+      height: auto;
+    }
+
+    /* Ajuste da imagem do relógio e animação */
+    .header-img-link img {
+      width: 200px;
+      height: auto;
+      transition: transform 0.6s ease;
+      transform-origin: center center;
+      display: block;
+    }
+
+    /* Classe que gira a imagem */
+    .header-img-link.rotate img {
+      transform: rotate(360deg);
+    }
+
+    /* Responsivo para telas menores que 600px */
+    @media (max-width: 600px) {
+      .header-img-link {
+        position: static; /* tira o absolute */
+        transform: rotate(0) translate(0, 0); /* remove rotação e translate */
+        display: block;
+        margin: 0 auto 12px auto; /* centraliza e espaça */
+        opacity: 1; /* opcional para garantir visibilidade */
+      }
+
+      header {
+        padding: 18px 6px 10px 6px;
+        font-size: 1.3rem;
+      }
+    }
+
+    nav {
+      font-family:'Chancery cursive';
+      background-color: #2d180f6b;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 12px 0;
+      font-size: 1.1rem;
+      border-bottom: 1.3px solid #ce9b7e;
+    }
+
+    nav a {
+      color: #e1c9b8;
+      text-decoration: none;
+      padding: 6px 14px;
+    }
+
+    nav a:hover {
+      background: linear-gradient(90deg, #7c4d36 0%, #5c3417 100%);
+      color: #ffe7ca;
+    }
+
+main {
+      text-align: center;
+      background-color: #2d180f89;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 25px;
+      border-radius: 5px;
+      box-shadow: 0 4px 16px rgba(75, 46, 19, 0.6);
+    }
+
+
+    h2 {
+      font-family: 'Chancery cursive';
+      color: #c8b399;
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 24px;
+      font-size: 2rem;
+      text-shadow: 2px 2px 5px #4e280f;
+    }
+
+    section {
+      margin-bottom: 30px;
+    }
+
+    h3 {
+      font-family: 'Chancery cursive';
+      color: #c8b399;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #cea97e;
+      padding-bottom: 6px;
+      font-size: 1.5rem;
+      text-shadow: 1px 1px 3px #3d200c;
+    }
+
+    p {
+      font-size: 1.05rem;
+      margin-bottom: 16px;
+      text-align: justify;
+      color: #c8b9a9;
+      text-shadow: 1px 1px 3px #432b19;
+    }
+
+    footer {
+      font-family: 'Chancery cursive';
+      background-color: #2d180f6b;
+      color: #f5e6c8;
+      text-align: center;
+      padding: 18px 10px;
+      font-size: 1rem;
+      margin-top: 40px;
+      box-shadow: 0 -2px 12px #4b2e1340;
+    }
+    #overlay-gif {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: 9999;
+      opacity: 0.5;
+      pointer-events: none; /* para não bloquear cliques */
+    }
+
+
+    @media (max-width: 600px) {
+      body {
+        padding: 0 10px 30px 10px;
+      }
+
+      header {
+        font-size: 1.5rem;
+        padding: 20px 10px;
+      }
+
+      main {
+        padding: 16px;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <img src="https://img1.picmix.com/output/stamp/normal/4/6/8/5/2175864_50231.gif" alt="Loading" id="overlay-gif"/>
+  <header>Antiquario Temporal
+    <a class="header-img-link">
+      <img src="/projeto-web/pngtree-old-fashioned-pocket-watch-design-png-image_15270603.png" alt="Logo"/>
+    </a>
+  </header>
+
+  <nav>
+    <a href="ablueblue.html">Antiquario</a>
+    <a href="carroça.html">Minha Carroça</a>
+    <a href="perfil.html">Perfil</a>
+  </nav>
+
+  <main>
+    <section>
+      <h2>Visão Geral das Décadas</h2>
+      <p>
+        Entre os anos 1950 e 1990, o mundo passou por transformações profundas na política, tecnologia, cultura e sociedade. Cada década teve suas características únicas, marcando um período rico em mudanças que moldaram o modo de vida moderno. Nesta página, você conhecerá aspectos interessantes sobre a população, costumes e a música que influenciaram esses anos.
+      </p>
+    </section>
+
+    <section>
+      <h3>População e Sociedade</h3>
+      <p>
+        Na década de 1950, o mundo estava se recuperando da Segunda Guerra Mundial, com crescimento populacional acelerado. O Brasil, por exemplo, tinha cerca de 53 milhões de habitantes em 1950, segundo dados do IBGE, aumentando para cerca de 146 milhões em 1990. O crescimento urbano foi intenso, com muitas pessoas mudando-se para as cidades em busca de oportunidades.
+      </p>
+      <p>
+        Os costumes passaram por uma evolução gradual. Nos anos 1950 e 60, valores tradicionais predominavam, com famílias nucleares e papéis sociais mais rígidos. Nas décadas seguintes, especialmente nos anos 70 e 80, houve maior questionamento social, surgimento de movimentos pelos direitos civis, feminismo e cultura jovem.
+      </p>
+    </section>
+
+    <section>
+      <h3>A Música que Marcou Época</h3>
+      <p>
+        A música foi um dos grandes motores culturais dessas décadas. Nos anos 50, o rock'n'roll surgiu com nomes como Elvis Presley e Chuck Berry, revolucionando o cenário musical e influenciando jovens pelo mundo todo.
+      </p>
+      <p>
+        Nos anos 60, a invasão britânica, liderada pelos Beatles e Rolling Stones, dominou as paradas. O movimento psicodélico e a música folk também ganharam força, refletindo o espírito contestador da juventude.
+      </p>
+      <p>
+        Durante os anos 70, o rock progressivo, disco music e o punk deram nova cara ao cenário musical. Já os anos 80 foram marcados pelo pop, sintetizadores e o surgimento dos videoclipes, com artistas como Michael Jackson e Madonna tornando-se ícones globais.
+      </p>
+    </section>
+
+    <section>
+      <h3>Costumes e Cultura Pop</h3>
+      <p>
+        A moda e o comportamento refletiam as mudanças sociais. Nos anos 50, roupas mais formais e conservadoras predominavam. Nos anos 60 e 70, o estilo hippie e roupas coloridas passaram a ser símbolos de liberdade. A partir dos anos 80, a extravagância e o estilo “neon” se tornaram populares, com influência da MTV e cultura pop em massa.
+      </p>
+      <p>
+        O cinema, televisão e o rádio foram grandes influências na cultura popular, trazendo estrelas que marcaram gerações e ajudaram a difundir tendências musicais, de moda e comportamento.
+      </p>
+    </section>
+    
+    <section>
+      <h3>Fontes Confiáveis</h3>
+      <p>
+        Este conteúdo foi elaborado com base em dados oficiais do IBGE (<a href="https://www.ibge.gov.br" target="_blank" style="color:#ce9b7e;">ibge.gov.br</a>) para informações populacionais, além de pesquisas históricas reconhecidas e artigos de referência como a Enciclopédia Britannica (<a href="https://www.britannica.com" target="_blank" style="color:#ce9b7e;">britannica.com</a>).
+      </p>
+      <p>
+        Para a música e cultura, as fontes incluem livros de história da música popular e artigos acadêmicos que analisam as transformações culturais dessas décadas.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Antiquário Temporal. Todos os direitos reservados.
+  </footer>
+<script>
+        const clockLink = document.querySelector('.header-img-link');
+    clockLink.addEventListener('click', function(event) {
+      event.preventDefault();
+      if (!this.classList.contains('rotate')) {
+        this.classList.add('rotate');
+        setTimeout(() => this.classList.remove('rotate'), 600);
+      }
+    });
+</script>
+</body>
+</html>
